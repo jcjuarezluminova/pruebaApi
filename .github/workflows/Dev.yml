@@ -23,6 +23,10 @@ jobs:
         run: |
          npm i 
         shell: cmd
+      - name: Instalar Nodemon
+        run: |
+         npm install -g nodemon 
+        shell: cmd
       - name: Build API
         run: |
           nodemon api.js
