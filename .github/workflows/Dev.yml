@@ -30,7 +30,7 @@ jobs:
         shell: powershell
       - name: Remplazar Compilacion
         run: |
-          move .\dist\* "F:\Web\O2I_Reportes_API\"
+          move .\* "F:\Web\O2I_Reportes_API\"
         shell: powershell 
       - name: Agregar webConfig
         run: |
