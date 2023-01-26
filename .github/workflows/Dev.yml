@@ -1,0 +1,38 @@
+name: Dev
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches: 
+      - 'develop'
+  push:
+    branches: 
+      - 'main'
+jobs:
+  entornoDesarrollo:
+
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.17.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.17.0
+      - name: Instalar Dependencias
+        run: |
+         npm i 
+        shell: cmd
+      - name: Build API
+        run: |
+          nodemon api.js
+        shell: cmd
+      - name: Limpiar Carpeta
+        run: |
+           cd F:\Web
+           Remove-Item  -Recurse O2I_Reportes_API\*
+        shell: powershell
+      - name: Remplazar Compilacion
+        run: |
+          move .\dist\* "F:\Web\O2I_Reportes_API\"
+        shell: powershell 

@@ -1,0 +1,40 @@
+name: Dev
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches: 
+      - 'master'
+jobs:
+  entornoDesarrollo:
+
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.17.0
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.17.0
+      - name: Instalar Vue
+        run: |
+          npm install -g @vue/cli
+      - name: Instalar Dependencias
+        run: |
+         npm i 
+        shell: cmd
+      - name: Build Vue
+        run: |
+          npm run build
+        env:
+          VUE_APP_API: http://20.163.196.215:8090/ 
+        shell: cmd
+      - name: Limpiar Carpeta
+        run: |
+           cd F:\Web
+           Remove-Item  -Recurse O2I_Reportes_Web\*
+        shell: powershell
+      - name: Remplazar Compilacion
+        run: |
+          move .\dist\* "F:\Web\O2I_Reportes_Web\"
+        shell: powershell 
