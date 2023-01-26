@@ -23,14 +23,6 @@ jobs:
         run: |
          npm i 
         shell: cmd
-      - name: Instalar Nodemon
-        run: |
-         npm install -g nodemon 
-        shell: cmd
-      - name: Build API
-        run: |
-          nodemon api.js
-        shell: cmd
       - name: Limpiar Carpeta
         run: |
            cd F:\Web
@@ -40,3 +32,17 @@ jobs:
         run: |
           move .\dist\* "F:\Web\O2I_Reportes_API\"
         shell: powershell 
+      - name: Agregar webConfig
+        run: |
+          Copy-Item C:\actions-runner\Documentos-Reporteria\webConfigApi\web.config "F:\Web\O2I_Reportes_API\"
+        shell: powershell 
+      - name: Mover configuracion base datos
+        run: |
+          Copy-Item C:\actions-runner\Documentos-Reporteria\configuracionBaseDatos\dbconfig-Dev.js "F:\Web\O2I_Reportes_API\"
+        shell: powershell 
+      - name: Remplazar configuracion base datos
+        run: |
+          cd F:\Web\O2I_Reportes_API\
+          Remove-Item  -Recurse dbconfig.js
+          Rename-Item -Path "dbconfig-Dev.js" -NewName "dbconfig.js"
+        shell: powershell
